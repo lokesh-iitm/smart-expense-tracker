@@ -97,6 +97,20 @@ def update_income(
         return {"error": "Income not found"}
 
     return updated_income
+@app.delete("/income/{income_id}")
+def delete_income(
+    income_id: int,
+    db: Session = Depends(get_db)
+):
+    deleted_income = crud.delete_income(
+        db,
+        income_id
+    )
+
+    if not deleted_income:
+        return {"error": "Income not found"}
+
+    return deleted_income
 
 
 @app.get("/summary")

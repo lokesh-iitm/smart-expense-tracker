@@ -1,4 +1,5 @@
-#author :lokesh
+#author : lokesh
+
 from sqlalchemy.orm import Session
 from . import models, schemas
 
@@ -19,6 +20,8 @@ def create_expense(db: Session, expense: schemas.ExpenseCreate):
 
 def get_expenses(db: Session):
     return db.query(models.Expense).all()
+
+
 def update_expense(
     db: Session,
     expense_id: int,
@@ -41,6 +44,8 @@ def update_expense(
     db.refresh(db_expense)
 
     return db_expense
+
+
 def delete_expense(
     db: Session,
     expense_id: int
@@ -73,9 +78,10 @@ def create_income(db: Session, income: schemas.IncomeCreate):
     return db_income
 
 
-
 def get_income(db: Session):
     return db.query(models.Income).all()
+
+
 def update_income(
     db: Session,
     income_id: int,
@@ -97,3 +103,22 @@ def update_income(
     db.refresh(db_income)
 
     return db_income
+
+
+def delete_income(
+    db: Session,
+    income_id: int
+):
+    db_income = (
+        db.query(models.Income)
+        .filter(models.Income.id == income_id)
+        .first()
+    )
+
+    if not db_income:
+        return None
+
+    db.delete(db_income)
+    db.commit()
+
+    return {"message": "Income deleted successfully"}
