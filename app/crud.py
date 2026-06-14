@@ -1,3 +1,4 @@
+#author :lokesh
 from sqlalchemy.orm import Session
 from . import models, schemas
 
@@ -31,6 +32,7 @@ def create_income(db: Session, income: schemas.IncomeCreate):
     db.refresh(db_income)
 
     return db_income
+
 
 
 def get_income(db: Session):
