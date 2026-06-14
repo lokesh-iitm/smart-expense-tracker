@@ -1,17 +1,17 @@
+#author : lokesh
 
-#author :lokesh
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ExpenseCreate(BaseModel):
-    title: str
-    category: str
-    amount: float
+    title: str = Field(..., min_length=1)
+    category: str = Field(..., min_length=1)
+    amount: float = Field(..., gt=0)
 
 
 class IncomeCreate(BaseModel):
-    source: str
-    amount: float
+    source: str = Field(..., min_length=1)
+    amount: float = Field(..., gt=0)
 
 
 class ExpenseResponse(ExpenseCreate):
