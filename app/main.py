@@ -81,6 +81,22 @@ def list_income(
     db: Session = Depends(get_db)
 ):
     return crud.get_income(db)
+@app.put("/income/{income_id}")
+def update_income(
+    income_id: int,
+    income: schemas.IncomeCreate,
+    db: Session = Depends(get_db)
+):
+    updated_income = crud.update_income(
+        db,
+        income_id,
+        income
+    )
+
+    if not updated_income:
+        return {"error": "Income not found"}
+
+    return updated_income
 
 
 @app.get("/summary")

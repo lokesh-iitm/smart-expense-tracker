@@ -76,3 +76,24 @@ def create_income(db: Session, income: schemas.IncomeCreate):
 
 def get_income(db: Session):
     return db.query(models.Income).all()
+def update_income(
+    db: Session,
+    income_id: int,
+    income: schemas.IncomeCreate
+):
+    db_income = (
+        db.query(models.Income)
+        .filter(models.Income.id == income_id)
+        .first()
+    )
+
+    if not db_income:
+        return None
+
+    db_income.source = income.source
+    db_income.amount = income.amount
+
+    db.commit()
+    db.refresh(db_income)
+
+    return db_income
