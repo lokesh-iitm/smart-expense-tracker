@@ -19,6 +19,28 @@ def create_expense(db: Session, expense: schemas.ExpenseCreate):
 
 def get_expenses(db: Session):
     return db.query(models.Expense).all()
+def update_expense(
+    db: Session,
+    expense_id: int,
+    expense: schemas.ExpenseCreate
+):
+    db_expense = (
+        db.query(models.Expense)
+        .filter(models.Expense.id == expense_id)
+        .first()
+    )
+
+    if not db_expense:
+        return None
+
+    db_expense.title = expense.title
+    db_expense.category = expense.category
+    db_expense.amount = expense.amount
+
+    db.commit()
+    db.refresh(db_expense)
+
+    return db_expense
 
 
 def create_income(db: Session, income: schemas.IncomeCreate):

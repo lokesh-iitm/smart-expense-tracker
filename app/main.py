@@ -36,6 +36,22 @@ def list_expenses(
     db: Session = Depends(get_db)
 ):
     return crud.get_expenses(db)
+@app.put("/expenses/{expense_id}")
+def update_expense(
+    expense_id: int,
+    expense: schemas.ExpenseCreate,
+    db: Session = Depends(get_db)
+):
+    updated_expense = crud.update_expense(
+        db,
+        expense_id,
+        expense
+    )
+
+    if not updated_expense:
+        return {"error": "Expense not found"}
+
+    return updated_expense
 
 
 @app.post("/income")
