@@ -8,7 +8,8 @@ def create_expense(db: Session, expense: schemas.ExpenseCreate):
     db_expense = models.Expense(
         title=expense.title,
         category=expense.category,
-        amount=expense.amount
+        amount=expense.amount,
+        date=expense.date
     )
 
     db.add(db_expense)

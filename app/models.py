@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float , Date 
 from .database import Base
 
 
@@ -9,6 +9,7 @@ class Expense(Base):
     title = Column(String, nullable=False)
     category = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
+    date = Column(Date, nullable=False)
 
 
 class Income(Base):
