@@ -61,7 +61,31 @@ def get_monthly_report(
         "total_expense": total_expense,
         "total_transactions": len(monthly_expenses)
     }
+def get_top_categories(db: Session):
+    expenses = db.query(models.Expense).all()
 
+    category_totals = {}
+
+    for expense in expenses:
+        if expense.category not in category_totals:
+            category_totals[expense.category] = 0
+
+        category_totals[expense.category] += expense.amount
+
+    result = []
+
+    for category, total in category_totals.items():
+        result.append({
+            "category": category,
+            "total_spent": total
+        })
+
+    result.sort(
+        key=lambda x: x["total_spent"],
+        reverse=True
+    )
+
+    return result
 
 def update_expense(
     db: Session,

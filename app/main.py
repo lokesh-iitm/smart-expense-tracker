@@ -63,6 +63,11 @@ def monthly_report(
         db,
         month
     )
+@app.get("/analytics/top-categories")
+def top_categories(
+    db: Session = Depends(get_db)
+):
+    return crud.get_top_categories(db)
 @app.put("/expenses/{expense_id}")
 def update_expense(
     expense_id: int,
