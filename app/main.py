@@ -52,6 +52,20 @@ def update_expense(
         return {"error": "Expense not found"}
 
     return updated_expense
+@app.delete("/expenses/{expense_id}")
+def delete_expense(
+    expense_id: int,
+    db: Session = Depends(get_db)
+):
+    deleted_expense = crud.delete_expense(
+        db,
+        expense_id
+    )
+
+    if not deleted_expense:
+        return {"error": "Expense not found"}
+
+    return deleted_expense
 
 
 @app.post("/income")

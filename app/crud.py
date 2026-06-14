@@ -41,6 +41,23 @@ def update_expense(
     db.refresh(db_expense)
 
     return db_expense
+def delete_expense(
+    db: Session,
+    expense_id: int
+):
+    db_expense = (
+        db.query(models.Expense)
+        .filter(models.Expense.id == expense_id)
+        .first()
+    )
+
+    if not db_expense:
+        return None
+
+    db.delete(db_expense)
+    db.commit()
+
+    return {"message": "Expense deleted successfully"}
 
 
 def create_income(db: Session, income: schemas.IncomeCreate):
