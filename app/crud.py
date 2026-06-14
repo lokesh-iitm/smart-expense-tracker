@@ -39,6 +39,28 @@ def search_expenses(
         .filter(models.Expense.title.contains(keyword))
         .all()
     )
+def get_monthly_report(
+    db: Session,
+    month: str
+):
+    expenses = db.query(models.Expense).all()
+
+    monthly_expenses = [
+        expense
+        for expense in expenses
+        if str(expense.date).startswith(month)
+    ]
+
+    total_expense = sum(
+        expense.amount
+        for expense in monthly_expenses
+    )
+
+    return {
+        "month": month,
+        "total_expense": total_expense,
+        "total_transactions": len(monthly_expenses)
+    }
 
 
 def update_expense(

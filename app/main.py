@@ -54,6 +54,15 @@ def search_expenses(
         db,
         keyword
     )
+@app.get("/reports/monthly/{month}")
+def monthly_report(
+    month: str,
+    db: Session = Depends(get_db)
+):
+    return crud.get_monthly_report(
+        db,
+        month
+    )
 @app.put("/expenses/{expense_id}")
 def update_expense(
     expense_id: int,
