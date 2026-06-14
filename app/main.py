@@ -36,6 +36,15 @@ def list_expenses(
     db: Session = Depends(get_db)
 ):
     return crud.get_expenses(db)
+@app.get("/expenses/category/{category}")
+def expenses_by_category(
+    category: str,
+    db: Session = Depends(get_db)
+):
+    return crud.get_expenses_by_category(
+        db,
+        category
+    )
 @app.put("/expenses/{expense_id}")
 def update_expense(
     expense_id: int,

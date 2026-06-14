@@ -21,6 +21,15 @@ def create_expense(db: Session, expense: schemas.ExpenseCreate):
 
 def get_expenses(db: Session):
     return db.query(models.Expense).all()
+def get_expenses_by_category(
+    db: Session,
+    category: str
+):
+    return (
+        db.query(models.Expense)
+        .filter(models.Expense.category == category)
+        .all()
+    )
 
 
 def update_expense(
