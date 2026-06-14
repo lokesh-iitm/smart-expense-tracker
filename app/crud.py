@@ -30,6 +30,15 @@ def get_expenses_by_category(
         .filter(models.Expense.category == category)
         .all()
     )
+def search_expenses(
+    db: Session,
+    keyword: str
+):
+    return (
+        db.query(models.Expense)
+        .filter(models.Expense.title.contains(keyword))
+        .all()
+    )
 
 
 def update_expense(

@@ -45,6 +45,15 @@ def expenses_by_category(
         db,
         category
     )
+@app.get("/expenses/search/{keyword}")
+def search_expenses(
+    keyword: str,
+    db: Session = Depends(get_db)
+):
+    return crud.search_expenses(
+        db,
+        keyword
+    )
 @app.put("/expenses/{expense_id}")
 def update_expense(
     expense_id: int,
