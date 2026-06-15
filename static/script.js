@@ -264,3 +264,130 @@ async function editExpense(id) {
     loadExpenses();
     loadCategoryChart();
 }
+async function searchExpenses() {
+
+    const keyword =
+        document.getElementById(
+            "search-box"
+        ).value;
+
+    const response =
+        await fetch(
+            `/expenses/search/${keyword}`
+        );
+
+    const expenses =
+        await response.json();
+
+    const tableBody =
+        document.getElementById(
+            "expense-body"
+        );
+
+    tableBody.innerHTML = "";
+
+    expenses.forEach(expense => {
+
+        tableBody.innerHTML += `
+            <tr>
+                <td>${expense.title}</td>
+                <td>${expense.category}</td>
+                <td>${expense.amount}</td>
+                <td>${expense.date}</td>
+
+                <td>
+                    <button
+                        onclick="editExpense(${expense.id})"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        onclick="deleteExpense(${expense.id})"
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+
+    });
+
+}
+async function loadMonthlyReport() {
+
+    const month =
+        document.getElementById(
+            "report-month"
+        ).value;
+
+    const response =
+        await fetch(
+            `/reports/monthly/${month}`
+        );
+
+    const report =
+        await response.json();
+
+    document.getElementById(
+        "monthly-report"
+    ).innerHTML = `
+        <h3>Report for ${report.month}</h3>
+
+        <p>
+            Total Expense:
+            ₹${report.total_expense}
+        </p>
+
+        <p>
+            Total Transactions:
+            ${report.total_transactions}
+        </p>
+    `;
+}
+async function loadDateRangeReport() {
+
+    const startDate =
+        document.getElementById(
+            "start-date"
+        ).value;
+
+    const endDate =
+        document.getElementById(
+            "end-date"
+        ).value;
+
+    const response =
+        await fetch(
+            `/reports/range/${startDate}/${endDate}`
+        );
+
+    const report =
+        await response.json();
+
+    document.getElementById(
+        "date-range-report"
+    ).innerHTML = `
+        <h3>Date Range Report</h3>
+
+        <p>
+            Start Date:
+            ${report.start_date}
+        </p>
+
+        <p>
+            End Date:
+            ${report.end_date}
+        </p>
+
+        <p>
+            Total Expense:
+            ₹${report.total_expense}
+        </p>
+
+        <p>
+            Total Transactions:
+            ${report.total_transactions}
+        </p>
+    `;
+}

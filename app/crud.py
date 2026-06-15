@@ -2,6 +2,7 @@
 
 from sqlalchemy.orm import Session
 from . import models, schemas
+from sqlalchemy import or_
 
 
 def create_expense(db: Session, expense: schemas.ExpenseCreate):
@@ -49,13 +50,20 @@ def get_expenses_by_category(
         .filter(models.Expense.category == category)
         .all()
     )
+
+
 def search_expenses(
     db: Session,
     keyword: str
 ):
     return (
         db.query(models.Expense)
-        .filter(models.Expense.title.contains(keyword))
+        .filter(
+            or_(
+                models.Expense.title.contains(keyword),
+                models.Expense.category.contains(keyword)
+            )
+        )
         .all()
     )
 def get_monthly_report(

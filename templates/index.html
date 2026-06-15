@@ -36,6 +36,38 @@
         </div>
 
     </div>
+    <h2>Monthly Report</h2>
+
+<input
+    type="month"
+    id="report-month"
+>
+
+<button onclick="loadMonthlyReport()">
+    Get Report
+</button>
+
+<div id="monthly-report">
+
+</div>
+<h2>Date Range Report</h2>
+
+<input
+    type="date"
+    id="start-date"
+>
+
+<input
+    type="date"
+    id="end-date"
+>
+
+<button onclick="loadDateRangeReport()">
+    Get Report
+</button>
+
+<div id="date-range-report">
+</div>
     <h2>Category Spending Analysis</h2>
 
 <canvas id="categoryChart"></canvas>
@@ -116,15 +148,29 @@
 
 </form>
  <h2>Expenses</h2>
+        <input
+            type="text"
+            id="search-box"
+            placeholder="Search expenses..."
+        >
+
+        <button onclick="searchExpenses()">
+            Search
+        </button>
+
+        <button onclick="loadExpenses()">
+            Reset
+        </button>
 
     <table id="expense-table">
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Date</th>
-            </tr>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>   
         </thead>
 
         <tbody id="expense-body">
