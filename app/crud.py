@@ -185,7 +185,7 @@ def update_expense(
     db_expense.title = expense.title
     db_expense.category = expense.category
     db_expense.amount = expense.amount
-
+    db_expense.date = expense.date
     db.commit()
     db.refresh(db_expense)
 

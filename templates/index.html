@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Smart Expense Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/static/script.js" defer></script>
     <link rel="stylesheet" href="/static/style.css">
+    
 </head>
 <body>
 
@@ -34,8 +36,50 @@
         </div>
 
     </div>
-        <h2>Expenses</h2>
-        <h2>Add Expense</h2>
+    <h2>Category Spending Analysis</h2>
+
+<canvas id="categoryChart"></canvas>
+       
+        <
+        <h2>Add Income</h2>
+
+<form id="income-form">
+
+    <input
+        type="text"
+        id="income-source"
+        placeholder="Income Source"
+        required
+    >
+
+    <input
+        type="number"
+        id="income-amount"
+        placeholder="Amount"
+        required
+    >
+
+    <button type="submit">
+        Add Income
+    </button>
+
+</form>
+<h2>Income History</h2>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Source</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+
+    <tbody id="income-body">
+    </tbody>
+
+</table>
+<h2>Add Expense</h2>
 
 <form id="expense-form">
 
@@ -71,6 +115,7 @@
     </button>
 
 </form>
+ <h2>Expenses</h2>
 
     <table id="expense-table">
         <thead>
