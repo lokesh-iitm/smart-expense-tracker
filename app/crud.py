@@ -80,6 +80,29 @@ def get_monthly_report(
         "total_expense": total_expense,
         "total_transactions": len(monthly_expenses)
     }
+def get_date_range_report(
+    db: Session,
+    start_date,
+    end_date
+):
+    expenses = (
+        db.query(models.Expense)
+        .filter(models.Expense.date >= start_date)
+        .filter(models.Expense.date <= end_date)
+        .all()
+    )
+
+    total_expense = sum(
+        expense.amount
+        for expense in expenses
+    )
+
+    return {
+        "start_date": start_date,
+        "end_date": end_date,
+        "total_expense": total_expense,
+        "total_transactions": len(expenses)
+    }
 def get_top_categories(db: Session):
     expenses = db.query(models.Expense).all()
 

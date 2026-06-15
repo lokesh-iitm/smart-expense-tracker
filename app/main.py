@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
+from datetime import date
 
 from .database import Base, engine, SessionLocal
 from . import models, schemas, crud
@@ -75,6 +76,17 @@ def monthly_report(
     return crud.get_monthly_report(
         db,
         month
+    )
+@app.get("/reports/range/{start_date}/{end_date}")
+def date_range_report(
+    start_date: date,
+    end_date: date,
+    db: Session = Depends(get_db)
+):
+    return crud.get_date_range_report(
+        db,
+        start_date,
+        end_date
     )
 @app.get("/analytics/top-categories")
 def top_categories(
