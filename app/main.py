@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import date
 
@@ -113,8 +113,10 @@ def update_expense(
     )
 
     if not updated_expense:
-        return {"error": "Expense not found"}
-
+        raise HTTPException(
+        status_code=404,
+        detail="Expense not found"
+    )
     return updated_expense
 @app.delete("/expenses/{expense_id}")
 def delete_expense(
@@ -127,10 +129,11 @@ def delete_expense(
     )
 
     if not deleted_expense:
-        return {"error": "Expense not found"}
-
+         raise HTTPException(
+        status_code=404,
+        detail="Expense not found"
+    )
     return deleted_expense
-
 
 @app.post("/income")
 def add_income(
@@ -158,8 +161,10 @@ def update_income(
     )
 
     if not updated_income:
-        return {"error": "Income not found"}
-
+        raise HTTPException(
+        status_code=404,
+        detail="Income not found"
+    )
     return updated_income
 @app.delete("/income/{income_id}")
 def delete_income(
@@ -172,7 +177,10 @@ def delete_income(
     )
 
     if not deleted_income:
-        return {"error": "Income not found"}
+        raise HTTPException(
+        status_code=404,
+        detail="Income not found"
+    )
 
     return deleted_income
 
