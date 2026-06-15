@@ -93,6 +93,13 @@ def top_categories(
     db: Session = Depends(get_db)
 ):
     return crud.get_top_categories(db)
+@app.get("/dashboard")
+def dashboard(
+    db: Session = Depends(get_db)
+):
+    return crud.get_dashboard_data(
+        db
+    )
 @app.put("/expenses/{expense_id}")
 def update_expense(
     expense_id: int,

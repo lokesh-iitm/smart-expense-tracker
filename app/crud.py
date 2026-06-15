@@ -128,6 +128,45 @@ def get_top_categories(db: Session):
     )
 
     return result
+def get_dashboard_data(
+    db: Session
+):
+    expenses = db.query(models.Expense).all()
+    incomes = db.query(models.Income).all()
+
+    total_expense = sum(
+        expense.amount
+        for expense in expenses
+    )
+
+    total_income = sum(
+        income.amount
+        for income in incomes
+    )
+
+    category_totals = {}
+
+    for expense in expenses:
+        if expense.category not in category_totals:
+            category_totals[expense.category] = 0
+
+        category_totals[expense.category] += expense.amount
+
+    top_category = None
+
+    if category_totals:
+        top_category = max(
+            category_totals,
+            key=category_totals.get
+        )
+
+    return {
+        "total_income": total_income,
+        "total_expense": total_expense,
+        "balance": total_income - total_expense,
+        "total_transactions": len(expenses),
+        "top_category": top_category
+    }
 
 def update_expense(
     db: Session,
