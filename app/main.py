@@ -33,9 +33,22 @@ def add_expense(
 
 @app.get("/expenses")
 def list_expenses(
+    page: int = 1,
+    limit: int = 5,
     db: Session = Depends(get_db)
 ):
-    return crud.get_expenses(db)
+    return crud.get_expenses(
+        db,
+        page,
+        limit
+    )
+@app.get("/expenses/sort/amount")
+def sort_expenses_by_amount(
+    db: Session = Depends(get_db)
+):
+    return crud.get_expenses_sorted_by_amount(
+        db
+    )
 @app.get("/expenses/category/{category}")
 def expenses_by_category(
     category: str,

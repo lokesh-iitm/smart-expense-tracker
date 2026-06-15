@@ -19,8 +19,27 @@ def create_expense(db: Session, expense: schemas.ExpenseCreate):
     return db_expense
 
 
-def get_expenses(db: Session):
-    return db.query(models.Expense).all()
+def get_expenses(
+    db: Session,
+    page: int = 1,
+    limit: int = 5
+):
+    skip = (page - 1) * limit
+
+    return (
+        db.query(models.Expense)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+def get_expenses_sorted_by_amount(
+    db: Session
+):
+    return (
+        db.query(models.Expense)
+        .order_by(models.Expense.amount.desc())
+        .all()
+    )
 def get_expenses_by_category(
     db: Session,
     category: str
