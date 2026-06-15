@@ -4,10 +4,14 @@ from datetime import date
 
 from .database import Base, engine, SessionLocal
 from . import models, schemas, crud
+from fastapi import Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Smart Expense Tracker")
+templates = Jinja2Templates(directory="templates")
 
 
 def get_db():
@@ -19,10 +23,13 @@ def get_db():
         db.close()
 
 
-@app.get("/")
-def home():
-    return {"message": "Smart Expense Tracker API Running"}
-
+@app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"request": request}
+    )
 
 @app.post("/expenses")
 def add_expense(
