@@ -2,7 +2,7 @@
 
 A full-stack Expense Tracking application built using **FastAPI**, **SQLAlchemy**, **SQLite**, **HTML**, **CSS**, **JavaScript**, and **Chart.js**.
 
-The application allows users to manage expenses and income, view analytics, generate reports, and visualize spending patterns.
+The application helps users manage expenses and income, analyze spending patterns, generate reports, and visualize financial data through interactive charts.
 
 ---
 
@@ -36,6 +36,38 @@ The application allows users to manage expenses and income, view analytics, gene
 ### Data Visualization
 
 * Category-wise spending chart using Chart.js
+
+---
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Income History
+
+![Income History](screenshots/income-history.png)
+
+### Expense History
+
+![Expense History](screenshots/expense-history.png)
+
+### Expense Analytics
+
+![Expense Analytics](screenshots/chart.png)
+
+### Search Expenses
+
+![Search Expenses](screenshots/search.png)
+
+### Monthly Report
+
+![Monthly Report](screenshots/monthly-report.png)
+
+### Date Range Report
+
+![Date Range Report](screenshots/date-range-report.png)
 
 ---
 
@@ -75,8 +107,17 @@ smart-expense-tracker/
 │   ├── script.js
 │   └── style.css
 │
-├── expense_tracker.db
+├── screenshots/
+│   ├── dashboard.png
+│   ├── income-history.png
+│   ├── expense-history.png
+│   ├── chart.png
+│   ├── search.png
+│   ├── monthly-report.png
+│   └── date-range-report.png
+│
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -164,16 +205,17 @@ http://127.0.0.1:8000
 
 ## Future Improvements
 
-* User Authentication (JWT)
+* JWT Authentication
 * User-specific expense tracking
 * Export reports as PDF
 * Budget planning and alerts
 * Advanced analytics dashboard
+* Dark mode support
 
 ---
 
 ## Author
 
-Lokesh Prasad
+**Lokesh Prasad**
 
-Built as a learning project to explore FastAPI, SQLAlchemy, frontend integration, analytics, and full-stack development.
+Built as a learning project to explore FastAPI, SQLAlchemy, frontend integration, analytics, reporting, and full-stack development.
